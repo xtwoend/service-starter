@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+// Self-called anonymous function that creates its own scope and keep the global namespace clean. 
+(function () {
+    $app = require_once __DIR__ . '/bootstrap.php';
+    
+    // run app
+    $app->run();
+})();
+

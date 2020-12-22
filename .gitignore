@@ -1,0 +1,6 @@
+/vendor
+/runtime
+/.idea
+.env
+.env-docker
+.phpunit.result.cache
