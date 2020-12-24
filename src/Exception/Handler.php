@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Exception;
 
 use Throwable;
 use OpenTracing\Tracer;
@@ -76,7 +76,7 @@ class Handler extends ExceptionHandler
      */
     protected function convertExceptionToArray(Throwable $e)
     {
-        return config('config.debug', true) ? [
+        return config('debug', false) ? [
             'error'     => 3000,
             'message'   => $e->getMessage(),
             'exception' => get_class($e),

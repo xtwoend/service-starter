@@ -23,10 +23,9 @@ date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 
 // create instance app
 $app = new \App\Application($dependencies);
-$app->registerExceptionHandler(\App\Exceptions\Handler::class);
+$app->registerExceptionHandler(\App\Exception\Handler::class);
 
 $app->configure('server');
-$app->configure('config');
 $app->configure('commands');
 $app->configure('listeners');
 $app->configure('middlewares');

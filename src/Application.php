@@ -58,19 +58,8 @@ class Application
     {
         $providers = $this->autoload? ProviderConfig::load() : $this->bootstrapProviders();
 
-        $config = new Config($providers);
-        $config->set(StdoutLoggerInterface::class, [
-            'log_level' => [
-                LogLevel::ALERT,
-                LogLevel::CRITICAL,
-                LogLevel::DEBUG,
-                LogLevel::EMERGENCY,
-                LogLevel::ERROR,
-                LogLevel::INFO,
-                LogLevel::NOTICE,
-                LogLevel::WARNING,
-            ],
-        ]);
+        $baseConfig = require $this->basePath . '/config/config.php';
+        $config = new Config(array_merge_recursive($providers, $baseConfig));
         
         $dependencies = array_merge($config->get('dependencies', []), $this->dependencies);
         $container = new Container(new DefinitionSource($dependencies));
