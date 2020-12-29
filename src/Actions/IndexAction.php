@@ -9,7 +9,6 @@ class IndexAction
 {
     public function index(RequestInterface $request, ResponseInterface $response)
     {    
-
         return [
             'test' => 'ok'
         ];
