@@ -4,3 +4,5 @@
 .env
 .env-docker
 .phpunit.result.cache
+*.DS_Store
+!*.gitkeep

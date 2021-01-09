@@ -1,7 +1,5 @@
 <?php declare(strict_types=1);
 
-use Hyperf\Contract\ConfigInterface;
-
 ini_set('display_errors', 'on');
 ini_set('display_startup_errors', 'on');
 
