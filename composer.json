@@ -34,7 +34,7 @@
         }
     },
     "license": "MIT",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "scripts": {
         "start": "php ./bin/mix start",
         "dev": "bash ./bin/watch -c",
