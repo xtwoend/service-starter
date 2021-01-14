@@ -37,6 +37,9 @@
     "scripts": {
         "start": "php ./bin/mix start",
         "dev": "bash ./bin/watch -c",
-        "test": "co-phpunit -c phpunit.xml --colors=always"
+        "test": "co-phpunit -c phpunit.xml --colors=always",
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env-example', '.env');\""
+        ]
     }
 }
