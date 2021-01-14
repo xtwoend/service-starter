@@ -3,10 +3,12 @@
 namespace App;
 
 use Dotenv\Dotenv;
+use Dotenv\Repository\Adapter;
 use Dotenv\Repository\RepositoryBuilder;
 use Dotenv\Exception\InvalidFileException;
+use Dotenv\Repository\Adapter\PutenvAdapter;
+use Dotenv\Repository\Adapter\EnvConstAdapter;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Dotenv\Repository\Adapter;
 
 class LoadEnvironmentVariables
 {
@@ -63,15 +65,12 @@ class LoadEnvironmentVariables
      */
     protected function createDotenv()
     {
-        $repository = RepositoryBuilder::create()
-            ->withReaders([
-                new Adapter\PutenvAdapter(),
-            ])
-            ->withWriters([
-                new Adapter\PutenvAdapter(),
-            ])
+        $repository = RepositoryBuilder::createWithNoAdapters()
+            ->addAdapter(EnvConstAdapter::class)
+            ->addWriter(PutenvAdapter::class)
             ->immutable()
             ->make();
+
 
         return Dotenv::create($repository, $this->filePath, $this->fileName);
     }
