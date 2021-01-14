@@ -14,8 +14,7 @@
         "hyperf/db-connection": "^2.0",
         "hyperf/model-cache": "^2.0",
         "hyperf/redis": "^2.0",
-        "hyperf/cache": "^2.0",
-        "hyperf/tracer": "^2.0"
+        "hyperf/cache": "^2.0"
     },
     "require-dev": {
         "hyperf/testing": "^2.0"
