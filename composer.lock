@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c6221c7741bd7cb856f843765b45e58",
+    "content-hash": "3642a79687e279cb4add6ee730c2accd",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -645,16 +645,16 @@
         },
         {
             "name": "hyperf/contract",
-            "version": "v2.1.0",
+            "version": "v2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/contract.git",
-                "reference": "915f9e2aa94eda0de481cbea3a030807c474f33d"
+                "reference": "45609fd3415ab9ad0d07a0d014d37a3d872c5470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/contract/zipball/915f9e2aa94eda0de481cbea3a030807c474f33d",
-                "reference": "915f9e2aa94eda0de481cbea3a030807c474f33d",
+                "url": "https://api.github.com/repos/hyperf/contract/zipball/45609fd3415ab9ad0d07a0d014d37a3d872c5470",
+                "reference": "45609fd3415ab9ad0d07a0d014d37a3d872c5470",
                 "shasum": ""
             },
             "require": {
@@ -695,20 +695,20 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2020-12-27T06:12:45+00:00"
+            "time": "2021-01-11T10:03:17+00:00"
         },
         {
             "name": "hyperf/database",
-            "version": "v2.1.2",
+            "version": "v2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/database.git",
-                "reference": "bc5e02ee2f2f3b006be7aa776880f83276d02655"
+                "reference": "b7b93903256ddb5590bdad14ec575200e9c6e984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/database/zipball/bc5e02ee2f2f3b006be7aa776880f83276d02655",
-                "reference": "bc5e02ee2f2f3b006be7aa776880f83276d02655",
+                "url": "https://api.github.com/repos/hyperf/database/zipball/b7b93903256ddb5590bdad14ec575200e9c6e984",
+                "reference": "b7b93903256ddb5590bdad14ec575200e9c6e984",
                 "shasum": ""
             },
             "require": {
@@ -756,20 +756,20 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2021-01-07T06:39:11+00:00"
+            "time": "2021-01-15T09:00:52+00:00"
         },
         {
             "name": "hyperf/db-connection",
-            "version": "v2.1.0",
+            "version": "v2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/db-connection.git",
-                "reference": "1449f2eb3dd686e6bcdbfcac6073390f96f3b6e6"
+                "reference": "d10339b4bff493ca6e6275011ea4cd2077bc15f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/db-connection/zipball/1449f2eb3dd686e6bcdbfcac6073390f96f3b6e6",
-                "reference": "1449f2eb3dd686e6bcdbfcac6073390f96f3b6e6",
+                "url": "https://api.github.com/repos/hyperf/db-connection/zipball/d10339b4bff493ca6e6275011ea4cd2077bc15f7",
+                "reference": "d10339b4bff493ca6e6275011ea4cd2077bc15f7",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +819,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2020-12-27T06:12:45+00:00"
+            "time": "2021-01-13T02:53:01+00:00"
         },
         {
             "name": "hyperf/di",
@@ -1569,16 +1569,16 @@
         },
         {
             "name": "hyperf/redis",
-            "version": "v2.1.0",
+            "version": "v2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/redis.git",
-                "reference": "51880e3a7377c32d3a991f9c18c649d06efe30f5"
+                "reference": "84f984d4d491a8d95a85e76866e2b936cae97c86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/redis/zipball/51880e3a7377c32d3a991f9c18c649d06efe30f5",
-                "reference": "51880e3a7377c32d3a991f9c18c649d06efe30f5",
+                "url": "https://api.github.com/repos/hyperf/redis/zipball/84f984d4d491a8d95a85e76866e2b936cae97c86",
+                "reference": "84f984d4d491a8d95a85e76866e2b936cae97c86",
                 "shasum": ""
             },
             "require": {
@@ -1632,7 +1632,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2020-12-27T06:12:45+00:00"
+            "time": "2021-01-14T01:38:13+00:00"
         },
         {
             "name": "hyperf/server",
@@ -1703,16 +1703,16 @@
         },
         {
             "name": "hyperf/utils",
-            "version": "v2.1.2",
+            "version": "v2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/utils.git",
-                "reference": "f50f3779964b27bb5be386a32bbe03abbdd4f665"
+                "reference": "cb49ab820816f6e720b12fa9e7ade11e6833cb93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/utils/zipball/f50f3779964b27bb5be386a32bbe03abbdd4f665",
-                "reference": "f50f3779964b27bb5be386a32bbe03abbdd4f665",
+                "url": "https://api.github.com/repos/hyperf/utils/zipball/cb49ab820816f6e720b12fa9e7ade11e6833cb93",
+                "reference": "cb49ab820816f6e720b12fa9e7ade11e6833cb93",
                 "shasum": ""
             },
             "require": {
@@ -1772,7 +1772,7 @@
                 "pull-request": "https://github.com/hyperf/hyperf/pulls",
                 "source": "https://github.com/hyperf/hyperf"
             },
-            "time": "2021-01-08T06:02:36+00:00"
+            "time": "2021-01-12T09:48:11+00:00"
         },
         {
             "name": "jetbrains/phpstorm-stubs",
@@ -4641,16 +4641,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.0",
+            "version": "9.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8e16c225d57c3d6808014df6b1dd7598d0a5bbbe"
+                "reference": "e7bdf4085de85a825f4424eae52c99a1cec2f360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e16c225d57c3d6808014df6b1dd7598d0a5bbbe",
-                "reference": "8e16c225d57c3d6808014df6b1dd7598d0a5bbbe",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e7bdf4085de85a825f4424eae52c99a1cec2f360",
+                "reference": "e7bdf4085de85a825f4424eae52c99a1cec2f360",
                 "shasum": ""
             },
             "require": {
@@ -4728,7 +4728,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.0"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.1"
             },
             "funding": [
                 {
@@ -4740,7 +4740,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-04T05:05:53+00:00"
+            "time": "2021-01-17T07:42:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",

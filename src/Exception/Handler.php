@@ -3,10 +3,7 @@
 namespace App\Exception;
 
 use Throwable;
-use OpenTracing\Tracer;
-use Hyperf\Utils\Coroutine;
 use Hyperf\Utils\Codec\Json;
-use Hyperf\Tracer\SpanStarter;
 use Psr\Http\Message\ResponseInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\HttpMessage\Stream\SwooleStream;
@@ -16,22 +13,14 @@ use Hyperf\HttpMessage\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
-    use SpanStarter;
-    
     /**
      * @var StdoutLoggerInterface
      */
     protected $logger;
 
-    /**
-     * @var Tracer
-     */
-    private $tracer;
-
-    public function __construct(StdoutLoggerInterface $logger, Tracer $tracer)
+    public function __construct(StdoutLoggerInterface $logger)
     {
         $this->logger = $logger;
-        $this->tracer = $tracer;
     }
 
     public function handle(Throwable $throwable, ResponseInterface $response)
@@ -47,8 +36,6 @@ class Handler extends ExceptionHandler
 
         $statusCode = $this->isHttpException($throwable)? $throwable->getStatusCode(): 500;
         $error = $this->convertExceptionToArray($throwable);
-
-        $this->sendError($error);
 
         return $response
             ->withHeader('Server', 'Hyperf')
@@ -92,17 +79,5 @@ class Handler extends ExceptionHandler
     protected function isHttpException(Throwable $e)
     {
         return $e instanceof NotFoundHttpException || $e instanceof MethodNotAllowedHttpException;
-    }
-
-    private function sendError($error)
-    {
-        $span = $this->startSpan('error');
-        $span->setTag('coroutine.id', (string) Coroutine::id());
-        $span->setTag('error', \json_encode($error, JSON_PRETTY_PRINT));
-        $span->finish();
-
-        defer(function () {
-            $this->tracer->flush();
-        });
     }
 }
