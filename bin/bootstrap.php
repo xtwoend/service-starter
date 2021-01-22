@@ -40,6 +40,11 @@ $app->register(\Hyperf\Cache\ConfigProvider::class);
 $app->configure('databases');
 $app->register(\Hyperf\DbConnection\ConfigProvider::class);
 
+// tracer (zipkin opentrace)
+$app->configure('opentracing');
+$app->register(Hyperf\Tracer\ConfigProvider::class);
+
+
 // register route
 $app->router->addGroup('', function($router) use ($app) {
     require BASE_PATH . '/config/router.php';

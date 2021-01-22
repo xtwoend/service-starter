@@ -71,7 +71,6 @@ class LoadEnvironmentVariables
             ->immutable()
             ->make();
 
-
         return Dotenv::create($repository, $this->filePath, $this->fileName);
     }
 

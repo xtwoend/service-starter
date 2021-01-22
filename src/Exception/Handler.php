@@ -3,7 +3,10 @@
 namespace App\Exception;
 
 use Throwable;
+use OpenTracing\Tracer;
+use Hyperf\Utils\Coroutine;
 use Hyperf\Utils\Codec\Json;
+use Hyperf\Tracer\SpanStarter;
 use Psr\Http\Message\ResponseInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\HttpMessage\Stream\SwooleStream;
@@ -13,35 +16,55 @@ use Hyperf\HttpMessage\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
+    use SpanStarter;
+
     /**
      * @var StdoutLoggerInterface
      */
     protected $logger;
 
-    public function __construct(StdoutLoggerInterface $logger)
+    /**
+     * @var Tracer
+     */
+    private $tracer;
+
+    public function __construct(StdoutLoggerInterface $logger, Tracer $tracer)
     {
         $this->logger = $logger;
+        $this->tracer = $tracer;
     }
 
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
-        $this->logger->error(
-            sprintf('%s[%s] in %s', 
-                $throwable->getMessage(), 
-                $throwable->getLine(), $throwable->getFile()
-            )
-        );
-
-        $this->logger->error($throwable->getTraceAsString());
-
         $statusCode = $this->isHttpException($throwable)? $throwable->getStatusCode(): 500;
-        $error = $this->convertExceptionToArray($throwable);
+        $errors = $this->convertExceptionToArray($throwable);
+
+        if(config('debug')){
+            $this->logger->error(
+                sprintf(
+                    '%s[%s] in %s',
+                    $throwable->getMessage(),
+                    $throwable->getLine(),
+                    $throwable->getFile()
+                ));
+
+            $this->logger->error($throwable->getTraceAsString());
+            $this->sendError($errors);
+        }
+
+        if(config('app_env') === 'prod')
+        {
+            $errors = [
+                'error'     => 3000,
+                'message'   => $this->isHttpException($throwable) ? $throwable->getMessage() : 'Server Error'
+            ];
+        }
 
         return $response
             ->withHeader('Server', 'Hyperf')
             ->withStatus($statusCode)
             ->withAddedHeader('content-type', 'application/json')
-            ->withBody(new SwooleStream(Json::encode($error)));
+            ->withBody(new SwooleStream(Json::encode($errors)));
     }
 
     /**
@@ -63,21 +86,31 @@ class Handler extends ExceptionHandler
      */
     protected function convertExceptionToArray(Throwable $e)
     {
-        return config('debug', false) ? [
+        return [
             'error'     => 3000,
             'message'   => $e->getMessage(),
             'exception' => get_class($e),
             'file'      => $e->getFile(),
             'line'      => $e->getLine(),
             'trace'     => explode("\n", $e->getTraceAsString())
-        ] : [
-            'error'     => 3000,
-            'message'   => $this->isHttpException($e) ? $e->getMessage() : 'Server Error'
         ];
     }
 
     protected function isHttpException(Throwable $e)
     {
         return $e instanceof NotFoundHttpException || $e instanceof MethodNotAllowedHttpException;
+    }
+
+    // tracer for app debug
+    protected function sendError($errors)
+    {
+        $span = $this->startSpan(request()->fullUrl());
+        $span->setTag('coroutine.id', (string) Coroutine::id());
+        $span->setTag('error', \json_encode($errors, JSON_PRETTY_PRINT));
+        $span->finish();
+
+        defer(function () {
+            $this->tracer->flush();
+        });
     }
 }

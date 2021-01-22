@@ -10,7 +10,7 @@ return [
     'debug' => env('APP_DEBUG', false),
     'timezone' => env('APP_TIMEZONE', 'UTC'),
     'locale' => env('APP_LOCALE', 'en'),
-    
+
     // stdout logger
     StdoutLoggerInterface::class => [
         'log_level' => [
