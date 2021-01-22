@@ -5,10 +5,10 @@ use Zipkin\Samplers\BinarySampler;
 return [
     'default' => env('TRACER_DRIVER', 'zipkin'),
     'enable' => [
-        'guzzle' => env('TRACER_ENABLE_GUZZLE', false),
-        'redis' => env('TRACER_ENABLE_REDIS', false),
-        'db' => env('TRACER_ENABLE_DB', false),
-        'method' => env('TRACER_ENABLE_METHOD', false),
+        'guzzle' => env('TRACER_ENABLE_GUZZLE', false), // not working
+        'redis' => env('TRACER_ENABLE_REDIS', false), // not working
+        'db' => env('TRACER_ENABLE_DB', false), // work with Listener
+        'method' => env('TRACER_ENABLE_METHOD', false), // not working
     ],
     'tracer' => [
         'zipkin' => [
