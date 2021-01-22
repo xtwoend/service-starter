@@ -104,13 +104,9 @@ class Handler extends ExceptionHandler
     // tracer for app debug
     protected function sendError($errors)
     {
-        $span = $this->startSpan(request()->fullUrl());
+        $span = $this->startSpan('error');
         $span->setTag('coroutine.id', (string) Coroutine::id());
         $span->setTag('error', \json_encode($errors, JSON_PRETTY_PRINT));
         $span->finish();
-
-        defer(function () {
-            $this->tracer->flush();
-        });
     }
 }

@@ -8,7 +8,7 @@ return [
         'guzzle' => env('TRACER_ENABLE_GUZZLE', false), // not working
         'redis' => env('TRACER_ENABLE_REDIS', false), // not working
         'db' => env('TRACER_ENABLE_DB', false), // work with Listener
-        'method' => env('TRACER_ENABLE_METHOD', false), // not working
+        'method' => env('TRACER_ENABLE_METHOD', false), // not workin
     ],
     'tracer' => [
         'zipkin' => [
