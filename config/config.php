@@ -14,14 +14,14 @@ return [
     // stdout logger
     StdoutLoggerInterface::class => [
         'log_level' => [
-            LogLevel::ALERT,
-            LogLevel::CRITICAL,
-            LogLevel::DEBUG,
-            LogLevel::EMERGENCY,
+            // LogLevel::ALERT,
+            // LogLevel::CRITICAL,
+            // LogLevel::DEBUG,
+            // LogLevel::EMERGENCY,
             LogLevel::ERROR,
-            LogLevel::INFO,
-            LogLevel::NOTICE,
-            LogLevel::WARNING,
+            // LogLevel::INFO,
+            // LogLevel::NOTICE,
+            // LogLevel::WARNING,
         ],
     ]
 ];

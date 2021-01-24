@@ -44,7 +44,6 @@ $app->register(\Hyperf\DbConnection\ConfigProvider::class);
 $app->configure('opentracing');
 $app->register(Hyperf\Tracer\ConfigProvider::class);
 
-
 // register route
 $app->router->addGroup('', function($router) use ($app) {
     require BASE_PATH . '/config/router.php';

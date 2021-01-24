@@ -5,10 +5,10 @@ use Zipkin\Samplers\BinarySampler;
 return [
     'default' => env('TRACER_DRIVER', 'zipkin'),
     'enable' => [
-        'guzzle' => env('TRACER_ENABLE_GUZZLE', false), // not working
-        'redis' => env('TRACER_ENABLE_REDIS', false), // not working
-        'db' => env('TRACER_ENABLE_DB', false), // work with Listener
-        'method' => env('TRACER_ENABLE_METHOD', false), // not workin
+        'guzzle' => (bool) env('TRACER_ENABLE_GUZZLE', false), // not working require aop
+        'redis' => (bool) env('TRACER_ENABLE_REDIS', false), // not working require aop
+        'db' => (bool) env('TRACER_ENABLE_DB', false), // work with Listener
+        'method' => (bool) env('TRACER_ENABLE_METHOD', false), // not workin require aop
     ],
     'tracer' => [
         'zipkin' => [
@@ -21,7 +21,7 @@ return [
             ],
             'options' => [
                 'endpoint_url' => env('ZIPKIN_ENDPOINT_URL', 'http://localhost:9411/api/v2/spans'),
-                'timeout' => env('ZIPKIN_TIMEOUT', 1),
+                'timeout' => (bool) env('ZIPKIN_TIMEOUT', 1),
             ],
             'sampler' => BinarySampler::createAsAlwaysSample(),
         ]
