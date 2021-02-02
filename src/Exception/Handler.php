@@ -36,24 +36,24 @@ class Handler extends ExceptionHandler
 
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
-        $statusCode = $this->isHttpException($throwable)? $throwable->getStatusCode(): 500;
+        $statusCode = $this->isHttpException($throwable) ? $throwable->getStatusCode() : 500;
         $errors = $this->convertExceptionToArray($throwable);
 
-        if(config('debug')){
+        if (config('debug')) {
             $this->logger->error(
                 sprintf(
                     '%s[%s] in %s',
                     $throwable->getMessage(),
                     $throwable->getLine(),
                     $throwable->getFile()
-                ));
+                )
+            );
 
             $this->logger->error($throwable->getTraceAsString());
             $this->sendError($errors);
         }
 
-        if(config('app_env') === 'prod')
-        {
+        if (config('app_env') !== 'dev') {
             $errors = [
                 'error'     => 3000,
                 'message'   => $this->isHttpException($throwable) ? $throwable->getMessage() : 'Server Error'

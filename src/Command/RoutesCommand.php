@@ -1,14 +1,5 @@
 <?php
 
-declare(strict_types=1);
-/**
- * This file is part of Hyperf.
- *
- * @link     https://www.hyperf.io
- * @document https://hyperf.wiki
- * @contact  group@hyperf.io
- * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
- */
 namespace App\Command;
 
 use Hyperf\Command\Command as HyperfCommand;
@@ -47,7 +38,7 @@ class RoutesCommand extends HyperfCommand
     {
         $path = $this->input->getOption('path');
         $server = $this->input->getOption('server');
-        
+
         $factory = $this->container->get(DispatcherFactory::class);
         $router = $factory->getRouter($server);
         $this->show(
@@ -59,8 +50,19 @@ class RoutesCommand extends HyperfCommand
     protected function configure()
     {
         $this->setDescription('Describe the routes information.')
-            ->addOption('path', 'p', InputOption::VALUE_OPTIONAL, 'Get the detail of the specified route information by path')
-            ->addOption('server', 'S', InputOption::VALUE_OPTIONAL, 'Which server you want to describe routes.', 'http');
+            ->addOption(
+                'path',
+                'p',
+                InputOption::VALUE_OPTIONAL,
+                'Get the detail of the specified route information by path'
+            )
+            ->addOption(
+                'server',
+                'S',
+                InputOption::VALUE_OPTIONAL,
+                'Which server you want to describe routes.',
+                'http'
+            );
     }
 
     protected function analyzeRouter(string $server, RouteCollector $router, ?string $path)

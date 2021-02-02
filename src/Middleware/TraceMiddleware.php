@@ -1,14 +1,5 @@
 <?php
 
-declare(strict_types=1);
-/**
- * This file is part of Hyperf.
- *
- * @link     https://www.hyperf.io
- * @document https://hyperf.wiki
- * @contact  group@hyperf.io
- * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
- */
 namespace App\Middleware;
 
 use Hyperf\Tracer\SpanStarter;
@@ -45,13 +36,13 @@ class TraceMiddleware implements MiddlewareInterface
         if (! config('debug')) {
             return $handler->handle($request);
         }
-        
+
         $span = $this->buildSpan($request);
 
         defer(function () {
             $this->tracer->flush();
         });
-        
+
         try {
             $response = $handler->handle($request);
         } finally {

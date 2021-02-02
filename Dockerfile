@@ -9,7 +9,7 @@ RUN apk add --no-cache php7 php7-pear \
     php7-redis php7-pecl-apcu \
     php7-memcached php7-pecl-igbinary \
     php7-exif php7-curl php7-bcmath php7-dom php7-fileinfo php7-xmlwriter \
-    openssl-dev supervisor curl tzdata iputils
+    openssl-dev supervisor curl tzdata iputils git
 
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing  \
     php7-pecl-mongodb php7-pecl-swoole

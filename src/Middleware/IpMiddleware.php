@@ -71,10 +71,9 @@ class IpMiddleware implements MiddlewareInterface
     }
 
     public function process(
-        RequestInterface $request, 
+        RequestInterface $request,
         RequestHandlerInterface $handler
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         $ipAddress = $this->determineClientIpAddress($request);
         $request = $request->withAttribute($this->attributeName, $ipAddress);
 
@@ -87,14 +86,14 @@ class IpMiddleware implements MiddlewareInterface
         $ipAddress = null;
 
         $serverParams = $request->getServerParams();
-    
+
         if (isset($serverParams['remote_addr'])) {
             $remoteAddr = $this->extractIpAddress($serverParams['remote_addr']);
             if ($this->isValidIpAddress($remoteAddr)) {
                 $ipAddress = $remoteAddr;
             }
         }
-        
+
         $checkProxyHeaders = $this->checkProxyHeaders;
         if ($checkProxyHeaders) {
             // Exact Match

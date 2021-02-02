@@ -23,7 +23,7 @@ class Application
     protected string $basePath;
     protected Container $container;
     protected array $dependencies = [];
-    protected array $providerConfigs=[];
+    protected array $providerConfigs = [];
     protected static array $loadedProviders = [
         \Hyperf\Config\ConfigProvider::class,
         \Hyperf\Di\ConfigProvider::class,
@@ -41,34 +41,29 @@ class Application
     protected string $serverName = 'http';
     protected bool $autoload;
 
-    public function __construct($dependencies, $autoload = false) 
+    public function __construct($dependencies, $autoload = false)
     {
         $this->basePath = BASE_PATH;
         $this->dependencies = $dependencies;
         $this->autoload = $autoload;
-        
         $this->bootstrapContainer();
         $this->bootstrapProviders();
         $this->bootstrapRouter();
-
         $this->app = $this->createApp();
     }
 
     protected function bootstrapContainer(): void
     {
-        $providers = $this->autoload? ProviderConfig::load() : $this->bootstrapProviders();
+        $providers = $this->autoload ? ProviderConfig::load() : $this->bootstrapProviders();
 
         $baseConfig = require $this->basePath . '/config/config.php';
         $config = new Config(array_merge_recursive($providers, $baseConfig));
-        
         $dependencies = array_merge($config->get('dependencies', []), $this->dependencies);
         $container = new Container(new DefinitionSource($dependencies));
         $container->set(ConfigInterface::class, $config);
         $container->define(DispatcherFactory::class, DispatcherFactory::class);
         $container->define(BoundInterface::class, ContainerProxy::class);
-
         ApplicationContext::setContainer($container);
-        
         $this->container = $container;
     }
 
@@ -79,20 +74,19 @@ class Application
 
     public function register($provider): void
     {
-        if (! is_string($provider) 
-            || ! class_exists($provider) 
+        if (
+            ! is_string($provider)
+            || ! class_exists($provider)
             || ! method_exists($provider, '__invoke')
-        ){
+        ) {
             throw new \Exception("Provider {$provider} not installed.");
         }
 
         $providerConfig = (new $provider())();
-        
         $this->app->config($providerConfig);
 
-        if(array_key_exists('dependencies', $providerConfig))
-        {
-            foreach($providerConfig['dependencies'] as $name => $definition){
+        if (array_key_exists('dependencies', $providerConfig)) {
+            foreach ($providerConfig['dependencies'] as $name => $definition) {
                 // register dependencies provider to container
                 $this->container->define($name, $definition);
             }
@@ -102,10 +96,11 @@ class Application
     protected function bootstrapProviders(): array
     {
         foreach (self::$loadedProviders as $provider) {
-            if (! is_string($provider) 
-                || ! class_exists($provider) 
+            if (
+                ! is_string($provider)
+                || ! class_exists($provider)
                 || ! method_exists($provider, '__invoke')
-            ){
+            ) {
                 throw new \Exception("Provider {$provider} not installed.");
             }
 
@@ -137,22 +132,38 @@ class Application
     public function configure($name): void
     {
         $configPath = $this->basePath . '/config';
-        if(\file_exists($configPath . DIRECTORY_SEPARATOR . $name . '.php')){
+        if (\file_exists($configPath . DIRECTORY_SEPARATOR . $name . '.php')) {
             $config = require $configPath . DIRECTORY_SEPARATOR . $name . '.php';
             $this->app->config([$name => $config]);
         }
     }
-    
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $handler
+     * @return void
+     */
     public function registerExceptionHandler($handler): void
     {
         $this->app->addExceptionHandler($handler);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return ApplicationInterface
+     */
     public function run(): ApplicationInterface
     {
         return $this->app->run();
     }
-    
+
+    /**
+     * Undocumented function
+     *
+     * @return App
+     */
     protected function createApp(): App
     {
         return new App($this->container);

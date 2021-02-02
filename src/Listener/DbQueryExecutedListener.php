@@ -42,8 +42,9 @@ class DbQueryExecutedListener implements ListenerInterface
             $sql = $event->sql;
             if (! Arr::isAssoc($event->bindings)) {
                 foreach ($event->bindings as $key => $value) {
-                    if($value instanceof \DateTime || $value instanceof \DateTimeImmutable)
+                    if ($value instanceof \DateTime || $value instanceof \DateTimeImmutable) {
                         $value = $value->format('Y-m-d H:i:s');
+                    }
 
                     $sql = Str::replaceFirst('?', "'{$value}'", $sql);
                 }
