@@ -1,6 +1,5 @@
 <?php
 
 return [
-    \App\Command\RoutesCommand::class,
-    \App\Command\VendorPublishCommand::class
+    \App\Command\HalloCommand::class
 ];

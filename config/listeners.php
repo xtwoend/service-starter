@@ -1,5 +1,5 @@
 <?php
 
 return [
-    // \App\Listener\DbQueryExecutedListener::class
+    \App\Listener\DbQueryExecutedListener::class
 ];

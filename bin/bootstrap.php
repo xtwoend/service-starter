@@ -13,15 +13,15 @@ require_once BASE_PATH . '/vendor/autoload.php';
 $dependencies = require BASE_PATH . '/config/dependencies.php';
 
 // dotenv
-(new App\LoadEnvironmentVariables(
+(new Mix\LoadEnvironmentVariables(
     BASE_PATH
 ))->bootstrap();
 
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 
 // create instance app
-$app = new \App\Application($dependencies, true);
-$app->registerExceptionHandler(\App\Exception\Handler::class);
+$app = new Mix\Application($dependencies, true);
+$app->registerExceptionHandler(App\Exception\Handler::class);
 $app->configAutoload();
 
 // $app->configure('server');
