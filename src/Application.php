@@ -4,6 +4,7 @@ namespace App;
 
 use Hyperf\Nano\App;
 use Psr\Log\LogLevel;
+use RuntimeException;
 use Hyperf\Di\Container;
 use Hyperf\Config\Config;
 use Hyperf\Nano\BoundInterface;
@@ -65,6 +66,25 @@ class Application
         $container->define(BoundInterface::class, ContainerProxy::class);
         ApplicationContext::setContainer($container);
         $this->container = $container;
+    }
+
+    public function configAutoload($path = null, $excepts = ['router'])
+    {
+        if(is_null($path)) {
+            $path = $this->basePath . '/config';
+        }
+
+        if(! is_dir($path)) {
+            throw new RuntimeException("Path config not accessable");
+        }
+
+        $loadFiles = glob($path . '/*.php');
+        foreach ($loadFiles as $file) {
+            $file = basename($file, '.php');
+            if (! in_array($file, $excepts)) {
+                $this->configure($file);
+            }
+        }
     }
 
     public function getContainer(): ContainerInterface

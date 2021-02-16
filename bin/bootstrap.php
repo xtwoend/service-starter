@@ -20,29 +20,30 @@ $dependencies = require BASE_PATH . '/config/dependencies.php';
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 
 // create instance app
-$app = new \App\Application($dependencies);
+$app = new \App\Application($dependencies, true);
 $app->registerExceptionHandler(\App\Exception\Handler::class);
+$app->configAutoload();
 
-$app->configure('server');
-$app->configure('commands');
-$app->configure('listeners');
-$app->configure('middlewares');
+// $app->configure('server');
+// $app->configure('commands');
+// $app->configure('listeners');
+// $app->configure('middlewares');
 
-// redis
-$app->configure('redis');
-$app->register(\Hyperf\Redis\ConfigProvider::class);
+// // redis
+// $app->configure('redis');
+// $app->register(\Hyperf\Redis\ConfigProvider::class);
 
-// cache
-$app->configure('cache');
-$app->register(\Hyperf\Cache\ConfigProvider::class);
+// // cache
+// $app->configure('cache');
+// $app->register(\Hyperf\Cache\ConfigProvider::class);
 
-// database 
-$app->configure('databases');
-$app->register(\Hyperf\DbConnection\ConfigProvider::class);
+// // database 
+// $app->configure('databases');
+// $app->register(\Hyperf\DbConnection\ConfigProvider::class);
 
-// tracer (zipkin opentrace)
-$app->configure('opentracing');
-$app->register(Hyperf\Tracer\ConfigProvider::class);
+// // tracer (zipkin opentrace)
+// $app->configure('opentracing');
+// $app->register(Hyperf\Tracer\ConfigProvider::class);
 
 // register route
 $app->router->addGroup('', function($router) use ($app) {
