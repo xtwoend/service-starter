@@ -1,12 +1,13 @@
 <?php
 
-use Hyperf\Amqp\Producer;
+use Hyperf\Utils\Codec\Json;
 use Psr\SimpleCache\CacheInterface;
 use Hyperf\Utils\ApplicationContext;
+use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Contract\RequestInterface;
-use Hyperf\Amqp\Message\ProducerMessageInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Hyperf\Validation\Contract\ValidatorFactoryInterface;
 
 if (! function_exists('dispatch')) {
     function dispatch($event, int $priority = 1)
@@ -19,7 +20,7 @@ if (! function_exists('dispatch')) {
 if (! function_exists('validate')) {
     function validate(array $data, array $rules, array $messages = [], array $customAttributes = [])
     {
-        $validator = container()->get(\Hyperf\Validation\Contract\ValidatorFactoryInterface::class);
+        $validator = container()->get(ValidatorFactoryInterface::class);
 
         return $validator->make($data, $rules, $messages, $customAttributes);
     }
@@ -33,17 +34,34 @@ if (! function_exists('request')) {
 }
 
 if (! function_exists('response')) {
-    function response(): ResponseInterface
+    function response($data, int $code = 0, array $meta = []): ResponseInterface
     {
-        return container()->get(ResponseInterface::class);
-    }
-}
+        $response = container()->get(ResponseInterface::class);
+        $message = null;
+        $payload = [
+            'error' => $code
+        ];
 
-if (! function_exists('publish')) {
-    function produce(ProducerMessageInterface $message, bool $confirm = false, int $timeout = 5): bool
-    {
-        $producer = container()->get(Producer::class);
-        return $producer->produce($message, $confirm, $timeout);
+        if (is_string($data)) {
+            $payload['message'] = $data;
+            $data = null;
+        }
+
+        if ($data || is_array($data)) {
+            $payload['data'] = $data;
+        }
+
+        if ($meta) {
+            $payload['meta'] = $meta;
+        }
+
+        $payload = Json::encode($payload);
+
+        return $response
+                ->withStatus(200)
+                ->withHeader('content-type', 'application/json')
+                ->withHeader('content-length', strlen($payload))
+                ->withBody(new SwooleStream($payload));
     }
 }
 
