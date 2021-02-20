@@ -20,6 +20,10 @@ $dependencies = require BASE_PATH . '/config/dependencies.php';
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 
 // create instance app
+
+// for container proxy DI
+Hyperf\Di\ClassLoader::init();
+
 $app = new Mix\Application($dependencies, true);
 $app->registerExceptionHandler(App\Exception\Handler::class);
 $app->configAutoload();

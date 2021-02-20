@@ -23,5 +23,16 @@ return [
             LogLevel::NOTICE,
             LogLevel::WARNING,
         ],
+    ],
+    
+    'annotations' => [
+        'scan' => [
+            'paths' => [
+                BASE_PATH . '/src',
+            ],
+            'ignore_annotations' => [
+                'mixin',
+            ],
+        ],
     ]
 ];

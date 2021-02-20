@@ -31,7 +31,10 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "scripts": {
-        "start": "php ./bin/mix start",
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "php ./bin/mix start"
+        ],
         "dev": "bash ./bin/watch -c",
         "test": "co-phpunit -c phpunit.xml --colors=always",
         "lint": "./vendor/bin/phpcs --standard=PSR12 src/",
