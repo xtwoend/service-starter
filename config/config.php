@@ -10,6 +10,7 @@ return [
     'debug' => env('APP_DEBUG', false),
     'timezone' => env('APP_TIMEZONE', 'UTC'),
     'locale' => env('APP_LOCALE', 'en'),
+    'scan_cacheable' => env('SCAN_CACHEABLE', false),
 
     // stdout logger
     StdoutLoggerInterface::class => [
@@ -24,7 +25,9 @@ return [
             LogLevel::WARNING,
         ],
     ],
-    
+    'aspects' => [
+        // 
+    ],
     'annotations' => [
         'scan' => [
             'paths' => [
