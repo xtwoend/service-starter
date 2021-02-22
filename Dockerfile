@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:latest
 
 # Install packages
 RUN apk add --no-cache php7 php7-pear \
