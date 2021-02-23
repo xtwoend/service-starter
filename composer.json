@@ -35,6 +35,7 @@
             "Composer\\Config::disableProcessTimeout",
             "php ./bin/mix start"
         ],
+        "reset": "bash ./bin/reset",
         "dev": "bash ./bin/watch -c",
         "test": "co-phpunit -c phpunit.xml --colors=always",
         "lint": "./vendor/bin/phpcs --standard=PSR12 src/",

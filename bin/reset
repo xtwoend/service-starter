@@ -1,0 +1,9 @@
+#!/bin/bash
+
+RUN_CMD="php ./bin/mix start"
+
+# End the started process
+PID=`ps -ef | grep "${RUN_CMD}" | grep -v grep | awk '{print $2}'`
+if [[ ${PID} != "" ]];then
+    kill -9 ${PID}
+fi
